@@ -19,12 +19,11 @@ namespace EmailSenderApp.Services.EmailService
         }
         public void SendEmail(EmailDto request)
         {
-
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
             email.To.Add(MailboxAddress.Parse(request.To));
-            email.Subject = request.Subject;
-            email.Body = new TextPart(TextFormat.Html);
+            email.Subject = request.ContactName;
+            email.Body = new TextPart(TextFormat.Html) { Text = "<h1>" + request.Body + "</h1>" };
 
             using var smtp = new SmtpClient();
             smtp.Connect(_config.GetSection("EmailHost").Value, int.Parse(_config.GetSection("Port").Value), SecureSocketOptions.StartTls);
@@ -33,7 +32,7 @@ namespace EmailSenderApp.Services.EmailService
             smtp.Disconnect(true);
         }
 
-    
+
 
     }
 }

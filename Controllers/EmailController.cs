@@ -31,6 +31,7 @@ namespace EmailSenderApp.Controllers
             return Ok();
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public bool ReCaptchaPassed(string gRecaptchaResponse)
         {
             try
