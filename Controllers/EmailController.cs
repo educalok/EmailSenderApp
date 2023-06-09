@@ -36,7 +36,7 @@ namespace EmailSenderApp.Controllers
         {
             try
             {
-                var secret = _config["ReCatpcha:SecretKey"];
+                var secret = _config["SecretKey"];
                 HttpClient httpClient = _httpClientFactory.CreateClient();
                 var res = httpClient.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secret}&response={gRecaptchaResponse}").Result;
                 if (res.StatusCode != HttpStatusCode.OK)
