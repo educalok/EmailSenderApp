@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
 using System.Net;
 
 namespace EmailSenderApp.Controllers
@@ -45,16 +44,14 @@ namespace EmailSenderApp.Controllers
                 }
                 string JSONres = res.Content.ReadAsStringAsync().Result;
                 dynamic JSONdata = JObject.Parse(JSONres);
-                if (JSONdata.success != "true")
-                {
-                    return false;
-                }
-                return true;
+                return JSONdata.success == "true";
             }
             catch
             {
                 return false;
             }
         }
+
     }
+
 }

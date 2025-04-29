@@ -4,21 +4,28 @@ global using EmailSenderApp.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddHttpClient();
+
+// Register CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://devoo.dk", "http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
-app.UseCors(builder =>
-    builder.WithOrigins("http://eduardocalzone.com", "http://localhost:3000")
-           .AllowAnyHeader()
-);
-
+// Use CORS policy
+app.UseCors("MyAllowSpecificOrigins");
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
