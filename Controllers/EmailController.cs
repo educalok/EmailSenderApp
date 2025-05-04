@@ -27,7 +27,7 @@ namespace EmailSenderApp.Controllers
              ;
             }
             _emailService.SendEmail(request);
-            return Ok();
+            return Ok(new { message = "Email sent successfully" });
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
