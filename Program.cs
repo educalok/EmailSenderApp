@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyAllowSpecificOrigins",
         policy =>
         {
-            policy.WithOrigins("https://devoo.dk", "http://localhost:3000")
+            policy.WithOrigins("https://www.devoo.dk", "http://localhost:3000")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
