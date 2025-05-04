@@ -16,12 +16,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyAllowSpecificOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("https://devoo.dk", "http://localhost:3000")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
 });
-
 
 var app = builder.Build();
 
